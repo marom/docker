@@ -1,0 +1,58 @@
+## Check Docker Install and Config
+
+docker version
+
+docker info
+
+docker
+
+docker container run
+
+docker run
+
+
+## Container commands
+
+docker container run --publish 80:80 nginx
+
+1. Downloaded image 'nginx' from Docker Hub
+2. Started a new container from that image
+3. Opened port 80 on the host IP
+4. Routes that traffic to the container IP, port 80
+
+docker container top - process list in one container
+docker container inspect - details of one container config
+docker container stats - performance stats for all containers
+
+docker container run -it - start new container interactively
+docker container exec -it - run additional command in existing container
+
+## create and run mysql and check logs
+docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes MYSQL_RANDOM_ROOT_PASSWORD
+docker container logs db 
+
+
+## docker networks
+
+docker network ls - show networks
+docker network instpect - inspect the network
+docker network create --driver - create a network
+docker network connect - attach a network from container
+docker network dissconnect - detach a network from a container
+
+docker container run -d --name my_nginx --network my_app_net nginx
+
+docker network create mm_network -create custom network named mm_network
+
+--
+-- create elastic search container, run it in the background (-d), attach to mm_network (--net mm_network),
+-- make discoverable by alias = search (--net-alias search)
+docker container run -d --net mm_network --net-alias search elasticsearch:2
+--
+
+--
+-- run in removable mode apline container on a custom mm_network, run nslookup using search dns name
+docker container run --rm  --net mm_network alpine nslookup search
+--
+
+
