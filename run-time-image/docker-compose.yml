@@ -6,6 +6,7 @@ services:
   drupal:
     container_name: drupal
     image: custom-drupal
+    build: .
     ports:
       - "8080:80"
     volumes:
